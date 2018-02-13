@@ -67,7 +67,7 @@ func DBInsertStudent(name string, email string) (r bool) {
 	result, err := db.Query(query)
 	defer result.Close()
 
-	//還不會
+	//還不會 //https://www.jianshu.com/p/340eb943be2e
 	// tx, _ := db.Begin()
 	// query := fmt.Sprintf("INSERT INTO `junxiang_db`.`school` (`name`,`email`,`CreatedTime`) VALUES(`%s`,`%s`,`%s`)", name, email, getTime())
 	// tx.Exec(query)
