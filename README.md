@@ -37,5 +37,5 @@ npm run build
 **Back-end**
 ```bash
 # serve at localhost:8000 with static "/"
-go run ./backend/main.go
+cd ./backend && go run ./main.go
 ```

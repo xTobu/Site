@@ -13,8 +13,30 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// ========== server
+
+//Config struct
+type Config struct {
+	Port         string
+	StaticFolder string
+	IndexFile    string
+}
+
+//SetDefault Sever data
+func (config *Config) SetDefault() {
+	config.Port = ":8000"
+	config.StaticFolder = "../dist"
+	config.IndexFile = "../index.html"
+}
+
+////////////////////
+
 // Init blablaba
 func Init() {
+	// set config
+	config := Config{}
+	config.SetDefault()
+
 	// Creates a default gin router
 	router := gin.Default() // Grouping routes
 
@@ -22,12 +44,23 @@ func Init() {
 	//router.Use(middleware.PrintMiddleware)
 	//router.Use(middleware.Print())
 
+	// frontend //static.LocalFile是依據main.go所在地
+	router.Use(static.Serve("/dist", static.LocalFile(config.StaticFolder, true)))
+	router.Use(static.Serve("/favicon.ico", static.LocalFile("../favicon.ico", true)))
+	// router.Use(static.Serve("/", static.LocalFile("../favicon.ico", true)))
+
 	//根據website的路由規則
 	// router.LoadHTMLGlob("templates/*")
-	// frontend
-	router.Use(static.Serve("/", static.LocalFile("../", true)))
-	// router.Use(static.Serve("/", static.LocalFile("../favicon.ico", true)))
-	router.LoadHTMLGlob("../index.html")
+	router.LoadHTMLGlob(config.IndexFile)
+
+	//group： url
+	url := router.Group("/")
+	{
+		url.GET("/", func(c *gin.Context) {
+			c.HTML(http.StatusOK, "index.html", gin.H{"title": "hello Gin."})
+		})
+
+	}
 
 	// group： v1
 	v1 := router.Group("/v1")
@@ -69,6 +102,7 @@ func Init() {
 		vue.GET("/mssql", handlersVue.GetData)
 
 	}
+
 	//group：api
 	api := router.Group("/api")
 	{
@@ -83,5 +117,5 @@ func Init() {
 		c.HTML(200, "404.html", gin.H{})
 	})
 
-	router.Run(":8000") // listen and serve on 0.0.0.0:8000
+	router.Run(config.Port) // listen and serve on 0.0.0.0:8000
 }

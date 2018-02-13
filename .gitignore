@@ -11,6 +11,5 @@ yarn-error.log
 *.njsproj
 *.sln
 
-backend/server/mssql_config/config.go
 backend/server/router/handlers/api/sqldb/config.go
 
