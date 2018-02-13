@@ -53,7 +53,7 @@ func Init() {
 	// router.LoadHTMLGlob("templates/*")
 	router.LoadHTMLGlob(config.IndexFile)
 
-	//group： url
+	//group： url //首頁
 	url := router.Group("/")
 	{
 		url.GET("/", func(c *gin.Context) {
