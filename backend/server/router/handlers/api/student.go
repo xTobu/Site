@@ -5,7 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"./sqldb"
+	"./mssqldb"
+	"./mysqldb"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,7 +20,7 @@ type structStudent struct {
 
 //Student handler
 func Student(c *gin.Context) {
-	db, err := sql.Open("mssql", sqldb.ConnectionStr)
+	db, err := sql.Open("mssql", mssqldb.ConnectionStr)
 	defer db.Close()
 	if err != nil {
 		log.Fatalln(err)
@@ -50,11 +51,29 @@ func Student(c *gin.Context) {
 
 //Student2 blabla
 func Student2(c *gin.Context) {
-	if res, count := sqldb.DBGetStudents(); count > 0 {
-		n := sqldb.StudentS{res}
+	if res, count := mssqldb.DBGetStudents(); count > 0 {
+		n := mssqldb.StudentS{res}
 		c.JSON(http.StatusOK, n)
 	} else {
-		n := sqldb.StudentS{}
+		n := mssqldb.StudentS{}
+		c.JSON(http.StatusOK, n)
+		// c.JSON(http.StatusNoContent)
+	}
+	// if res, count := sqldb.DBGetStudents(); res != nil {
+	// 	if cou := count; cou >= 0 {
+	// 		n := sqldb.StudentS{res}
+	// 		c.JSON(http.StatusOK, n)
+	// 	}
+	// }
+}
+
+//Student3 use mysql
+func Student3(c *gin.Context) {
+	if res, count := mysqldb.DBGetStudents(); count > 0 {
+		n := mysqldb.StudentS{res}
+		c.JSON(http.StatusOK, n)
+	} else {
+		n := mssqldb.StudentS{}
 		c.JSON(http.StatusOK, n)
 		// c.JSON(http.StatusNoContent)
 	}

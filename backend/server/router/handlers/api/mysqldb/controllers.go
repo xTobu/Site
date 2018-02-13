@@ -1,14 +1,14 @@
-package sqldb
+package mysqldb
 
 import (
 	"database/sql"
 	"fmt"
-
 	"log"
 )
 
 func dbGetConn() *sql.DB {
-	db, err := sql.Open("mssql", ConnectionStr)
+
+	db, err := sql.Open("mysql", ConnectionStr)
 	if err != nil {
 		log.Fatal("Open connection failed:", err.Error())
 	}
@@ -20,12 +20,17 @@ func dbGetConn() *sql.DB {
 	return db
 }
 
-// DBGetStudents 取得所有學生資料
+// DBGetStudents MySQL 取得所有學生資料
 func DBGetStudents() (data []Student, count int) {
 	db := dbGetConn()
 	defer db.Close()
 
-	rows, err := db.Query("select * from [vueStudent]")
+	//本機
+	//rows, err := db.Query("SELECT * FROM `school`.`students`")
+
+	//敦偉
+	rows, err := db.Query("SELECT * FROM junxiang_db.school")
+
 	defer rows.Close()
 
 	if err != nil {
@@ -41,11 +46,11 @@ func DBGetStudents() (data []Student, count int) {
 	if err = rows.Err(); err != nil {
 		log.Fatalln(err)
 	}
-	getTime()
+	//getTime()
 	return data, count
 }
 
-// DBInsertStudent 新增一筆學生資料
+// DBInsertStudent MySQL 新增一筆學生資料
 func DBInsertStudent(name string, email string) (r bool) {
 
 	// name := c.Request.FormValue("name")
@@ -57,9 +62,16 @@ func DBInsertStudent(name string, email string) (r bool) {
 	db := dbGetConn()
 	defer db.Close()
 
-	query := fmt.Sprintf("INSERT INTO [dbo].[vueStudent] ([name],[email],[CreatedTime]) VALUES('%s','%s','%s')", name, email, getTime())
+	//query
+	query := fmt.Sprintf("INSERT INTO `junxiang_db`.`school` (`name`,`email`,`CreatedTime`) VALUES('%s','%s','%s')", name, email, getTime())
 	result, err := db.Query(query)
 	defer result.Close()
+
+	//還不會
+	// tx, _ := db.Begin()
+	// query := fmt.Sprintf("INSERT INTO `junxiang_db`.`school` (`name`,`email`,`CreatedTime`) VALUES(`%s`,`%s`,`%s`)", name, email, getTime())
+	// tx.Exec(query)
+	// tx.Commit()
 
 	if err != nil {
 		log.Fatalln(err)

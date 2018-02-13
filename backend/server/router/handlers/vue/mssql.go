@@ -8,7 +8,6 @@ import (
 
 	//"../../../mssql"
 	//go mssql
-	_ "github.com/denisenkom/go-mssqldb"
 	"github.com/gin-gonic/gin"
 )
 

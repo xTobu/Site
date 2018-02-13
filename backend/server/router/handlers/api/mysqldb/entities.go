@@ -1,4 +1,4 @@
-package sqldb
+package mysqldb
 
 //Student struct
 type Student struct {

@@ -6,7 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	"./sqldb"
+	"./mssqldb"
+	"./mysqldb"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,7 +25,7 @@ func Insert(c *gin.Context) {
 	email := c.Request.FormValue("email")
 
 	//開啟db
-	db, err := sql.Open("mssql", sqldb.ConnectionStr)
+	db, err := sql.Open("mssql", mssqldb.ConnectionStr)
 	defer db.Close()
 	if err != nil {
 		log.Fatalln(err)
@@ -45,7 +46,22 @@ func Insert(c *gin.Context) {
 //Insert2 handler 新增一筆學生資料
 func Insert2(c *gin.Context) {
 
-	if r := sqldb.DBInsertStudent(c.Request.FormValue("name"), c.Request.FormValue("email")); r == true {
+	if r := mssqldb.DBInsertStudent(c.Request.FormValue("name"), c.Request.FormValue("email")); r == true {
+		c.JSON(http.StatusOK, gin.H{
+			"result": "success",
+		})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"result": "fail",
+		})
+		// c.JSON(http.StatusNoContent)
+	}
+}
+
+//Insert3 use mysql handler 新增一筆學生資料
+func Insert3(c *gin.Context) {
+
+	if r := mysqldb.DBInsertStudent(c.Request.FormValue("name"), c.Request.FormValue("email")); r == true {
 		c.JSON(http.StatusOK, gin.H{
 			"result": "success",
 		})

@@ -7,10 +7,15 @@ import (
 	"./handlers"
 	"./handlers/vue"
 	"./middleware"
-	//go-mssqldb
-	_ "github.com/denisenkom/go-mssqldb"
+
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
+
+	//go-mssqldb
+	_ "github.com/denisenkom/go-mssqldb"
+
+	//mysql
+	_ "github.com/go-sql-driver/mysql"
 )
 
 // ========== server
@@ -50,8 +55,9 @@ func Init() {
 	// router.Use(static.Serve("/", static.LocalFile("../favicon.ico", true)))
 
 	//根據website的路由規則
-	// router.LoadHTMLGlob("templates/*")
+	//router.LoadHTMLGlob("templates/*")
 	router.LoadHTMLGlob(config.IndexFile)
+	// router.LoadHTMLGlob("../404.html")
 
 	//group： url //首頁
 	url := router.Group("/")
@@ -108,13 +114,16 @@ func Init() {
 	{
 		api.GET("/student", handlersApi.Student)
 		api.GET("/student2", handlersApi.Student2)
+		api.GET("/student3", handlersApi.Student3)
 		api.POST("/insert", handlersApi.Insert)
 		api.POST("/insert2", handlersApi.Insert2)
+		api.POST("/insert3", handlersApi.Insert3)
 	}
 
 	// 404 NotFound
 	router.NoRoute(func(c *gin.Context) {
-		c.HTML(200, "404.html", gin.H{})
+		// c.HTML(200, "404.html", gin.H{})
+		c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
 	})
 
 	router.Run(config.Port) // listen and serve on 0.0.0.0:8000
