@@ -1,10 +1,25 @@
 
 # Admin
 
-> Practice of Admin  with  + 
-> Back-end：Golang (Gin)
-> Front-end：Vue.js ( Element-UI)
+> 基於 Vue.js + Golang 的後台管理系統
 
+**Front-end**
+ - vue
+ - vuex
+ - vue-router
+ - pug
+ - sass-loader
+ - axios
+ - qs（qs.stringify for axios） 
+ - ElementUI
+ - url-loader（引用ElementUI樣式時需要編譯字型檔）
+ 
+**Back-end**
+ - Gin
+ - contrib/static
+ - go-mssqldb
+ 
+ 
 ##  Setup
 
 **Front-end**
