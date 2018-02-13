@@ -62,20 +62,44 @@ func DBInsertStudent(name string, email string) (r bool) {
 	db := dbGetConn()
 	defer db.Close()
 
-	//query
+	//傳統執行query //每次執行内部都会去连接池获取一个新的连接，效率低
+	/////////////////////////////////////////
+	// query := fmt.Sprintf("INSERT INTO `junxiang_db`.`school` (`name`,`email`,`CreatedTime`) VALUES('%s','%s','%s')", name, email, getTime())
+	// result, err := db.Query(query)
+	// if err != nil {
+	// 	log.Fatalln(err)
+	// }
+
+	// defer result.Close()
+
+	/////////////////////////////////////////
+
+	//https://www.jianshu.com/p/340eb943be2e
+	//https://studygolang.com/articles/3022  //方式4  Begin函数内部会去获取连接  多筆新增時效率高
+	/////////////////////////////////////////
 	query := fmt.Sprintf("INSERT INTO `junxiang_db`.`school` (`name`,`email`,`CreatedTime`) VALUES('%s','%s','%s')", name, email, getTime())
-	result, err := db.Query(query)
-	defer result.Close()
 
-	//還不會 //https://www.jianshu.com/p/340eb943be2e
-	// tx, _ := db.Begin()
-	// query := fmt.Sprintf("INSERT INTO `junxiang_db`.`school` (`name`,`email`,`CreatedTime`) VALUES(`%s`,`%s`,`%s`)", name, email, getTime())
-	// tx.Exec(query)
-	// tx.Commit()
-
+	//Begin函数内部会去获取连接
+	tx, err := db.Begin()
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	//每次循环用的都是tx内部的连接，没有新建连接，效率高
+	rs, err := tx.Exec(query)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	//最后释放tx内部的连接
+	tx.Commit()
+
+	rowCount, err := rs.RowsAffected()
+	if err != nil {
+		log.Fatalln(err)
+	}
+	log.Printf("inserted %d rows", rowCount)
+	/////////////////////////////////////////
 
 	r = true
 	return r
