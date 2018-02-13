@@ -18,7 +18,7 @@
  - Gin
  - contrib/static
  - go-mssqldb
- 
+ - go-sql-driver/mysql
  
 ##  Setup
 
