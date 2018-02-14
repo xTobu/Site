@@ -8,8 +8,7 @@
 	    <li><router-link :to="{path: '/slot/post'}">Post</router-link></li>
 	   <li><router-link :to="{path: '/slot/about'}">About</router-link></li>
 	   <li><router-link :to="{path: '/slot/count'}">Count</router-link></li>
-   </ul>
-   
+   </ul>  
     
     <hr>
    
