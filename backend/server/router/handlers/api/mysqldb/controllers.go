@@ -81,23 +81,18 @@ func DBInsertStudent(name string, email string) (r bool) {
 
 	//Begin函数内部会去获取连接
 	tx, err := db.Begin()
-	if err != nil {
-		log.Fatalln(err)
-	}
+	errCheck(err)
 
 	//每次循环用的都是tx内部的连接，没有新建连接，效率高
 	rs, err := tx.Exec(query)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	errCheck(err)
 
 	//最后释放tx内部的连接
 	tx.Commit()
 
 	rowCount, err := rs.RowsAffected()
-	if err != nil {
-		log.Fatalln(err)
-	}
+	errCheck(err)
+
 	log.Printf("inserted %d rows", rowCount)
 	/////////////////////////////////////////
 
