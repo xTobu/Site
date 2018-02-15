@@ -3,8 +3,8 @@ package router
 import (
 	"net/http"
 
-	"../router/handlers/api"
 	"./handlers"
+	"./handlers/api"
 	"./handlers/vue"
 	"./middleware"
 
