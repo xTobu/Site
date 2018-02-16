@@ -12,7 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	//go-mssqldb
-	_ "github.com/denisenkom/go-mssqldb"
+	//_ "github.com/denisenkom/go-mssqldb"
 
 	//mysql
 	_ "github.com/go-sql-driver/mysql"
