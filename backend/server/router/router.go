@@ -112,11 +112,11 @@ func Init() {
 	//group：api
 	api := router.Group("/api")
 	{
-		api.GET("/student", handlersApi.Student)
-		api.GET("/student2", handlersApi.Student2)
+		// api.GET("/student", handlersApi.Student)
+		// api.GET("/student2", handlersApi.Student2)
 		api.GET("/student3", handlersApi.Student3)
-		api.POST("/insert", handlersApi.Insert)
-		api.POST("/insert2", handlersApi.Insert2)
+		// api.POST("/insert", handlersApi.Insert)
+		// api.POST("/insert2", handlersApi.Insert2)
 		api.POST("/insert3", handlersApi.Insert3)
 	}
 
