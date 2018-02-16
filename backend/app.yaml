@@ -7,20 +7,6 @@ handlers:
 - url: /.*
   script: _go_app
 
-- url: /favicon.ico
-  static_files: favicon.ico
-  upload: favicon.ico
-
-- url: /
-  static_files: index.html
-  upload: index.html
-
-- url: /dist
-  static_dir: dist
-  
 
 - url: /server
   static_dir: server
-
-- url: /templates
-  static_dir: templates

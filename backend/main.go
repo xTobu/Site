@@ -4,9 +4,11 @@ package main
 
 import (
 	"./server/router"
+	// "google.golang.org/appengine"
 )
 
 func main() {
+	// appengine.Main()
 	router.Init() // init router
 
 }
