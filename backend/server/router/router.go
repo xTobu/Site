@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"./handlers"
-	"./handlers/api"
+	//"./handlers/api"
 	"./handlers/vue"
 	"./middleware"
 	"github.com/gin-gonic/contrib/static"
@@ -109,15 +109,15 @@ func Init() {
 	}
 
 	//group：api
-	api := router.Group("/api")
-	{
-		// api.GET("/student", handlersApi.Student)
-		// api.GET("/student2", handlersApi.Student2)
-		api.GET("/student3", handlersApi.Student3)
-		// api.POST("/insert", handlersApi.Insert)
-		// api.POST("/insert2", handlersApi.Insert2)
-		api.POST("/insert3", handlersApi.Insert3)
-	}
+	//api := router.Group("/api")
+	//{
+	// api.GET("/student", handlersApi.Student)
+	// api.GET("/student2", handlersApi.Student2)
+	//api.GET("/student3", handlersApi.Student3)
+	// api.POST("/insert", handlersApi.Insert)
+	// api.POST("/insert2", handlersApi.Insert2)
+	//api.POST("/insert3", handlersApi.Insert3)
+	//}
 
 	// 404 NotFound
 	router.NoRoute(func(c *gin.Context) {
