@@ -9,7 +9,7 @@ import (
 	"./middleware"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
-
+	"google.golang.org/appengine"
 	//go-mssqldb
 	//_ "github.com/denisenkom/go-mssqldb"
 
@@ -126,4 +126,5 @@ func Init() {
 	})
 
 	router.Run(config.Port) // listen and serve on 0.0.0.0:8000
+	appengine.Main()
 }
