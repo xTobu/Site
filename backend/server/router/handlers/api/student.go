@@ -71,7 +71,7 @@ func Student3(c *gin.Context) {
 		n := mysqldb.StudentS{res}
 		c.JSON(http.StatusOK, n)
 	} else {
-		n := mssqldb.StudentS{}
+		n := mysqldb.StudentS{}
 		c.JSON(http.StatusOK, n)
 		// c.JSON(http.StatusNoContent)
 	}

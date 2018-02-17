@@ -7,7 +7,6 @@ import (
 	"./handlers/api"
 	"./handlers/vue"
 	"./middleware"
-
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 
