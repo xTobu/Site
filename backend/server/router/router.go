@@ -4,12 +4,11 @@ import (
 	"net/http"
 
 	"./handlers"
-	//"./handlers/api"
 	"./handlers/vue"
 	"./middleware"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
-	"google.golang.org/appengine"
+
 	//go-mssqldb
 	//_ "github.com/denisenkom/go-mssqldb"
 
@@ -113,10 +112,11 @@ func Init() {
 	//{
 	// api.GET("/student", handlersApi.Student)
 	// api.GET("/student2", handlersApi.Student2)
-	//api.GET("/student3", handlersApi.Student3)
+	// api.GET("/student3", handlersApi.Student3)
+	//api.GET("/student3", handlersApi.Student_cloudql)
 	// api.POST("/insert", handlersApi.Insert)
 	// api.POST("/insert2", handlersApi.Insert2)
-	//api.POST("/insert3", handlersApi.Insert3)
+	// api.POST("/insert3", handlersApi.Insert3)
 	//}
 
 	// 404 NotFound
@@ -126,5 +126,5 @@ func Init() {
 	})
 
 	router.Run(config.Port) // listen and serve on 0.0.0.0:8000
-	appengine.Main()
+
 }
