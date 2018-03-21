@@ -1,5 +1,5 @@
 
-# Admin
+# Site（暫停更新
 
 > 基於 Vue.js + Golang 的後台管理系統
 
